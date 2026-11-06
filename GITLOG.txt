@@ -1,4 +1,5 @@
-* d8f84c8 (published/main) Document rubric evidence and harden redaction of sensitive fields and credentials
+* 6b67019 (published/main) Record public Git history and clean-clone verification output
+* d8f84c8 Document rubric evidence and harden redaction of sensitive fields and credentials
 * b4abe05 Add CI checks and a non-root container packaging recipe
 * 9d7180a Verify control boundaries, isolated approvals and idempotent resume with 54 tests
 * f6dc921 Build an 18-scenario evaluation suite and aggregate operational reports
