@@ -20,7 +20,7 @@ UNSAFE_EMAIL = re.compile(
     r"commit(?:ment|ments)?|promise|unlimited liability)\b",
     re.IGNORECASE,
 )
-SECRET = re.compile(r"sk-[A-Za-z0-9_-]{12,}|Bearer\s+\S+", re.IGNORECASE)
+SECRET = re.compile(r"sk-[A-Za-z0-9_-]{12,}|voc-[A-Za-z0-9_.-]{12,}|Bearer\s+\S+", re.IGNORECASE)
 
 
 def canonical(text: str) -> str:

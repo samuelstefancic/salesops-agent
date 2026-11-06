@@ -85,6 +85,7 @@ def main():
     )
     args = parser.parse_args()
     root = args.root.resolve()
+    Settings(root=root)
     reports = root / "reports"
     reports.mkdir(exist_ok=True)
     with TemporaryDirectory(prefix="salesops-evaluation-") as temporary:
