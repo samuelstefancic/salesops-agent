@@ -1,0 +1,13 @@
+* d8f84c8 (published/main) Document rubric evidence and harden redaction of sensitive fields and credentials
+* b4abe05 Add CI checks and a non-root container packaging recipe
+* 9d7180a Verify control boundaries, isolated approvals and idempotent resume with 54 tests
+* f6dc921 Build an 18-scenario evaluation suite and aggregate operational reports
+* c90cdb2 Add LangChain CLI with shared policy middleware and explicit offline test model
+* d623cec Expose approved CRM tools and enforce email decisions at the execution boundary
+* d0cc2f2 Persist scoped email approvals and record redacted run trajectories
+* 3e5011d Constrain CRM analysis to bounded aggregate operations without code execution
+* 75b9b88 Add code-enforced input and output policies with trace redaction
+* 372dc22 Refactor CRM loading with field allowlists and scoped account lookup
+* af571cf Extract versioned prompts, configuration and strict tool schemas
+* 3b03a2b Create uv project structure and copy the CRM fixtures
+* 489baee Initial commit
