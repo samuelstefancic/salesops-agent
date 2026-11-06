@@ -48,7 +48,9 @@ class StateStore:
                 db.execute("INSERT OR IGNORE INTO outbox VALUES (?, ?, ?)", (draft_id, scope, body))
             else:
                 raise ValueError("Approval must be approve or reject")
-            db.execute("UPDATE drafts SET status=? WHERE id=? AND scope=?", (status, draft_id, scope))
+            db.execute(
+                "UPDATE drafts SET status=? WHERE id=? AND scope=?", (status, draft_id, scope)
+            )
         return {"status": status, "draft_id": draft_id, "simulated": True}
 
     def outbox(self, scope: str) -> list[dict]:

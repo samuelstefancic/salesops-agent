@@ -2,7 +2,7 @@ import hashlib
 import json
 import time
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import uuid4
 
 from salesops.config import Settings, resource
@@ -37,20 +37,29 @@ class Run:
             + self.output_tokens * settings.values["output_usd_per_million"]
         ) / 1_000_000
         summary = {
-            "run_id": self.run_id, "timestamp": datetime.now(timezone.utc).isoformat(),
-            "user_id": settings.user_id, "session_id": settings.session_id,
-            "thread_id": settings.thread_id, "user_input": redact(self.question),
-            "task_id": self.task_id, "status": status, "final_output": redact(answer),
+            "run_id": self.run_id,
+            "timestamp": datetime.now(UTC).isoformat(),
+            "user_id": settings.user_id,
+            "session_id": settings.session_id,
+            "thread_id": settings.thread_id,
+            "user_input": redact(self.question),
+            "task_id": self.task_id,
+            "status": status,
+            "final_output": redact(answer),
             "tools_called": [e["name"] for e in self.events if e["kind"] == "tool_call"],
-            "latency_ms": self.elapsed, "estimated_cost_usd": round(cost, 9),
-            "input_tokens": self.input_tokens, "output_tokens": self.output_tokens,
+            "latency_ms": self.elapsed,
+            "estimated_cost_usd": round(cost, 9),
+            "input_tokens": self.input_tokens,
+            "output_tokens": self.output_tokens,
             "model": settings.model if settings.backend == "live" else "scripted-test-model",
-            "backend": settings.backend, "hitl_decision": self.approval,
+            "backend": settings.backend,
+            "hitl_decision": self.approval,
             "guardrail_interventions": [e for e in self.events if e["kind"] == "guardrail"],
             "failure_reason": reason,
-            "versions": {"config": settings.values["version"], "prompt_sha256": hashlib.sha256(
-                resource("system.v1.txt").encode()
-            ).hexdigest()},
+            "versions": {
+                "config": settings.values["version"],
+                "prompt_sha256": hashlib.sha256(resource("system.v1.txt").encode()).hexdigest(),
+            },
         }
         for directory in ("logs", "traces"):
             (settings.root / directory).mkdir(parents=True, exist_ok=True)

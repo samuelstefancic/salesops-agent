@@ -34,12 +34,15 @@ class ScriptedModel(BaseChatModel):
             for key, value in list(call["args"].items()):
                 if value == "$draft_id":
                     previous = next(
-                        message for message in reversed(messages)
+                        message
+                        for message in reversed(messages)
                         if isinstance(message, ToolMessage) and message.name == "draft_email"
                     )
                     call["args"][key] = json.loads(previous.content)["draft_id"]
         if step.get("content") == "$last_tool":
-            previous = next(message for message in reversed(messages) if isinstance(message, ToolMessage))
+            previous = next(
+                message for message in reversed(messages) if isinstance(message, ToolMessage)
+            )
             step["content"] = "Offline CRM result: " + previous.content
         step.setdefault("content", "")
         message = AIMessage(**step)
@@ -52,17 +55,27 @@ def call_step(name: str, arguments: dict) -> dict:
 
 def offline_model(question: str, surface: ToolSurface) -> ScriptedModel:
     query = normalized(question)
-    account_id = next((
-        account["account_id"] for account in surface.crm.tables["accounts"]
-        if normalized(account["name"]) in query.split(" 's")[0]
-        or normalized(account["account_id"]) in query.split()
-    ), None)
+    account_id = next(
+        (
+            account["account_id"]
+            for account in surface.crm.tables["accounts"]
+            if normalized(account["name"]) in query.split(" 's")[0]
+            or normalized(account["account_id"]) in query.split()
+        ),
+        None,
+    )
     if "pipeline" in query:
         steps = [call_step("summarize_pipeline", {})]
     elif "email" in query and account_id:
-        steps = [call_step("draft_email", {
-            "account_name_or_id": account_id, "purpose": "the next steps discussed with your team"
-        })]
+        steps = [
+            call_step(
+                "draft_email",
+                {
+                    "account_name_or_id": account_id,
+                    "purpose": "the next steps discussed with your team",
+                },
+            )
+        ]
         if "send" in query:
             steps.append(call_step("send_email", {"draft_id": "$draft_id"}))
     elif account_id:
@@ -70,13 +83,18 @@ def offline_model(question: str, surface: ToolSurface) -> ScriptedModel:
     elif "opportunit" in query:
         steps = [call_step("list_open_opportunities", {})]
     else:
-        return ScriptedModel(steps=[{"content": "Specify an exact CRM account name, ID or pipeline task."}])
+        return ScriptedModel(
+            steps=[{"content": "Specify an exact CRM account name, ID or pipeline task."}]
+        )
     return ScriptedModel(steps=steps + [{"content": "$last_tool"}])
 
 
 def ask(
-    question: str, settings: Settings, approval: str | None = None,
-    task_id: str | None = None, model: BaseChatModel | None = None,
+    question: str,
+    settings: Settings,
+    approval: str | None = None,
+    task_id: str | None = None,
+    model: BaseChatModel | None = None,
 ) -> dict:
     run = Run(settings, question, task_id=task_id)
     reason = input_reason(question, settings.values["max_input_characters"])
@@ -90,10 +108,14 @@ def ask(
                 model = offline_model(question, surface)
             else:
                 if not os.getenv("OPENAI_API_KEY"):
-                    return run.finish("failed", "No API credential is configured.", "missing_api_key")
+                    return run.finish(
+                        "failed", "No API credential is configured.", "missing_api_key"
+                    )
                 model = ChatOpenAI(
-                    model=settings.model, temperature=settings.values["temperature"],
-                    timeout=settings.values["model_timeout_seconds"], max_retries=0,
+                    model=settings.model,
+                    temperature=settings.values["temperature"],
+                    timeout=settings.values["model_timeout_seconds"],
+                    max_retries=0,
                 )
 
         @wrap_tool_call
@@ -114,12 +136,19 @@ def ask(
                 usage = getattr(message, "usage_metadata", None) or {}
                 run.input_tokens += usage.get("input_tokens", 0)
                 run.output_tokens += usage.get("output_tokens", 0)
-            run.event("model", call=run.model_calls, model=settings.model,
-                      input_tokens=run.input_tokens, output_tokens=run.output_tokens)
+            run.event(
+                "model",
+                call=run.model_calls,
+                model=settings.model,
+                input_tokens=run.input_tokens,
+                output_tokens=run.output_tokens,
+            )
             return response
 
         agent = create_agent(
-            model, tools=surface.langchain_tools(), system_prompt=settings.prompt,
+            model,
+            tools=surface.langchain_tools(),
+            system_prompt=settings.prompt,
             middleware=[enforce_tools, record_model],
         )
         response = agent.invoke(
@@ -132,21 +161,31 @@ def ask(
         reason = output_reason(answer)
         if reason:
             run.event("guardrail", **blocked(reason, "output"))
-            return run.finish("blocked", "The generated response did not pass the output policy.", reason)
+            return run.finish(
+                "blocked", "The generated response did not pass the output policy.", reason
+            )
         interventions = [event for event in run.events if event["kind"] == "guardrail"]
         if interventions:
-            return run.finish("blocked", "A proposed action was blocked by policy.", interventions[-1]["reason"])
+            return run.finish(
+                "blocked", "A proposed action was blocked by policy.", interventions[-1]["reason"]
+            )
         decisions = [
-            event for event in run.events if event["kind"] == "hitl" and event["action"] == "decision"
+            event
+            for event in run.events
+            if event["kind"] == "hitl" and event["action"] == "decision"
         ]
         if decisions:
             decision = decisions[-1]
             status = decision["status"]
             if status in {"awaiting_approval", "rejected", "sent"}:
-                answer = json.dumps({
-                    "email_status": status, "draft_id": decision["draft_id"], "simulated": True,
-                    "message": "No real email is delivered.",
-                })
+                answer = json.dumps(
+                    {
+                        "email_status": status,
+                        "draft_id": decision["draft_id"],
+                        "simulated": True,
+                        "message": "No real email is delivered.",
+                    }
+                )
                 return run.finish("success" if status == "sent" else status, answer)
         return run.finish("success", answer)
     except Exception as error:

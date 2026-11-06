@@ -1,7 +1,6 @@
 import re
 import unicodedata
 
-
 RESTRICTED = re.compile(
     r"\b(?:salary|salaries|compensation|equity[_ ]bonus|bonus|bonuses|layoffs?|"
     r"redundan(?:cy|cies)|termination|terminations|fired|getting fired|performance[_ ](?:plan|status)|"
@@ -61,8 +60,7 @@ def redact(value):
         return value
     if isinstance(value, dict):
         return {
-            key: "[REDACTED]" if restricted(key) else redact(item)
-            for key, item in value.items()
+            key: "[REDACTED]" if restricted(key) else redact(item) for key, item in value.items()
         }
     if isinstance(value, list):
         return [redact(item) for item in value]

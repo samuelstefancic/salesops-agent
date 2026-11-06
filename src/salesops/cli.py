@@ -5,14 +5,15 @@ from pathlib import Path
 from salesops.agent import ask
 from salesops.config import Settings
 from salesops.observability import Run
-from salesops.policy import output_reason
 from salesops.tools import ToolSurface
 
 
 def main():
     parser = argparse.ArgumentParser(description="UdaCenture local SalesOps agent")
     parser.add_argument("--root", type=Path, default=Path.cwd())
-    parser.add_argument("--offline", action="store_true", help="Use the scripted test model, without API calls")
+    parser.add_argument(
+        "--offline", action="store_true", help="Use the scripted test model, without API calls"
+    )
     parser.add_argument("--user-id", default="local-analyst")
     parser.add_argument("--session-id", default="local-session")
     parser.add_argument("--thread-id", default="default")
@@ -27,8 +28,11 @@ def main():
     replay.add_argument("run_id")
     args = parser.parse_args()
     settings = Settings(
-        root=args.root, backend="offline" if args.offline else "live",
-        user_id=args.user_id, session_id=args.session_id, thread_id=args.thread_id,
+        root=args.root,
+        backend="offline" if args.offline else "live",
+        user_id=args.user_id,
+        session_id=args.session_id,
+        thread_id=args.thread_id,
     )
     if args.command == "ask":
         result = ask(args.question, settings, args.approval)
@@ -47,7 +51,9 @@ def main():
         trace = settings.root / "traces" / f"{args.run_id}.json"
         result = json.loads(trace.read_text())
         if (result["user_id"], result["session_id"], result["thread_id"]) != (
-            settings.user_id, settings.session_id, settings.thread_id
+            settings.user_id,
+            settings.session_id,
+            settings.thread_id,
         ):
             parser.error("Trace is outside the current user/session/thread scope")
     print(json.dumps(result, indent=2))

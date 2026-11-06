@@ -8,7 +8,12 @@ from salesops.observability import Run
 from salesops.policy import blocked, input_reason, output_reason, redact
 from salesops.sandbox import analyze
 from salesops.schemas import (
-    AccountQuery, AnalysisRequest, Arguments, DraftRequest, OpportunityQuery, SendRequest,
+    AccountQuery,
+    AnalysisRequest,
+    Arguments,
+    DraftRequest,
+    OpportunityQuery,
+    SendRequest,
 )
 from salesops.state import StateStore
 
@@ -20,22 +25,28 @@ class ToolSurface:
         self.crm = CRM(run.settings)
         self.store = StateStore(run.settings.root)
         self.definitions = {
-            "lookup_account": (AccountQuery, "Look up one allowed CRM account by exact name or ID."),
+            "lookup_account": (
+                AccountQuery,
+                "Look up one allowed CRM account by exact name or ID.",
+            ),
             "lookup_account_context": (
-                AccountQuery, "Read CRM context for account risk, renewals, usage and support."
+                AccountQuery,
+                "Read CRM context for account risk, renewals, usage and support.",
             ),
             "list_open_opportunities": (
-                OpportunityQuery, "List open opportunities in the allowed CRM scope, with optional stage."
+                OpportunityQuery,
+                "List open opportunities in the allowed CRM scope, with optional stage.",
             ),
             "summarize_pipeline": (Arguments, "Summarize open pipeline value by stage."),
             "analyze_crm": (
                 AnalysisRequest,
                 "Run bounded CRM aggregates. No Python, files, imports or network. "
-                "For open pipeline value use opportunities/group_sum/amount_usd/stage."
+                "For open pipeline value use opportunities/group_sum/amount_usd/stage.",
             ),
             "draft_email": (DraftRequest, "Create a follow-up draft for a CRM primary contact."),
             "send_email": (
-                SendRequest, "Request human approval for a stored draft; simulate sending locally."
+                SendRequest,
+                "Request human approval for a stored draft; simulate sending locally.",
             ),
         }
 
@@ -49,7 +60,9 @@ class ToolSurface:
         run.tool_calls += 1
         run.event("tool_call", name=name, arguments=arguments)
         if name not in self.definitions:
-            return self.deny("restricted_internal_data" if "internal" in name else "unknown_tool", name)
+            return self.deny(
+                "restricted_internal_data" if "internal" in name else "unknown_tool", name
+            )
         if run.tool_calls > run.settings.values["max_tool_calls"]:
             return self.deny("tool_budget_exceeded", name)
         schema = self.definitions[name][0]
@@ -73,9 +86,15 @@ class ToolSurface:
         if name == "list_open_opportunities":
             return self.crm.open_opportunities(args.stage)
         if name == "summarize_pipeline":
-            return analyze(self.crm.tables, AnalysisRequest(
-                dataset="opportunities", operation="group_sum", field="amount_usd", group_by="stage"
-            ))
+            return analyze(
+                self.crm.tables,
+                AnalysisRequest(
+                    dataset="opportunities",
+                    operation="group_sum",
+                    field="amount_usd",
+                    group_by="stage",
+                ),
+            )
         if name == "analyze_crm":
             return analyze(self.crm.tables, args)
         if name == "draft_email":
@@ -85,7 +104,8 @@ class ToolSurface:
             if contact is None:
                 raise ValueError("No primary contact")
             body = {
-                "to": contact["email"], "subject": f"Following up on {context['account']['name']}",
+                "to": contact["email"],
+                "subject": f"Following up on {context['account']['name']}",
                 "body": f"Hi {contact['first_name']},\n\nI wanted to follow up regarding "
                 f"{args.purpose}. Please let us know a suitable time to discuss next steps.\n\n"
                 "Best,\nUdaCenture SalesOps",
@@ -106,11 +126,15 @@ class ToolSurface:
         def bound(name):
             def execute(**kwargs):
                 return self.invoke(name, kwargs)
+
             return execute
 
         return [
             StructuredTool(
-                name=name, description=description, args_schema=schema, func=bound(name),
+                name=name,
+                description=description,
+                args_schema=schema,
+                func=bound(name),
                 handle_validation_error="Invalid arguments: follow the tool schema.",
             )
             for name, (schema, description) in self.definitions.items()

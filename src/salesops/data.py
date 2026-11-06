@@ -7,7 +7,8 @@ from salesops.config import Settings
 def normalized(value: str) -> str:
     value = re.sub(r"[^a-z0-9 ]", " ", value.casefold())
     return " ".join(
-        word for word in value.split()
+        word
+        for word in value.split()
         if word not in {"inc", "incorporated", "corp", "corporation", "ltd", "limited", "llc"}
     )
 
@@ -30,7 +31,8 @@ class CRM:
     def account(self, query: str) -> dict:
         query = normalized(query)
         matches = [
-            row for row in self.tables["accounts"]
+            row
+            for row in self.tables["accounts"]
             if query in {normalized(row["account_id"]), normalized(row["name"])}
         ]
         if len(matches) != 1:
@@ -53,7 +55,8 @@ class CRM:
 
     def open_opportunities(self, stage: str | None = None) -> list[dict]:
         return [
-            row for row in self.tables["opportunities"]
+            row
+            for row in self.tables["opportunities"]
             if row["stage"] not in {"Closed Won", "Closed Lost"}
             and (stage is None or row["stage"].casefold() == stage.casefold())
         ]

@@ -3,7 +3,6 @@ from collections import defaultdict
 
 from salesops.schemas import AnalysisRequest
 
-
 NUMERIC = {
     "opportunities": {"amount_usd", "probability"},
     "accounts": {"health_score", "arr_usd"},
@@ -32,6 +31,8 @@ def analyze(tables: dict, request: AnalysisRequest) -> dict:
     if request.operation.startswith("group_"):
         if request.group_by not in GROUPS[request.dataset]:
             raise ValueError("Grouping field is outside the analysis allowlist")
+    if request.operation in {"count", "group_count"} and request.field is not None:
+        raise ValueError("Counting does not accept a numeric field")
     values = [float(row.get(request.field) or 0) for row in rows] if request.field else []
     if any(not math.isfinite(value) for value in values):
         raise ValueError("Analysis data contains non-finite values")
@@ -48,6 +49,9 @@ def analyze(tables: dict, request: AnalysisRequest) -> dict:
             result[key] += float(row.get(request.field) or 0) if request.field else 1
         result = dict(sorted(result.items()))
     return {
-        "status": "success", "dataset": request.dataset, "operation": request.operation,
-        "rows": len(rows), "result": result,
+        "status": "success",
+        "dataset": request.dataset,
+        "operation": request.operation,
+        "rows": len(rows),
+        "result": result,
     }
