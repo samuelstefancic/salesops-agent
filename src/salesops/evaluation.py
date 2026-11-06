@@ -18,14 +18,16 @@ def run_suite(root: Path, live: bool = False) -> dict:
         model = None
         if "probe" in task:
             probe = task["probe"]
-            model = ScriptedModel(steps=[
-                call_step(probe["tool"], probe["arguments"]), {"content": "$last_tool"}
-            ])
+            model = ScriptedModel(
+                steps=[call_step(probe["tool"], probe["arguments"]), {"content": "$last_tool"}]
+            )
         elif "output_probe" in task:
             model = ScriptedModel(steps=[{"content": task["output_probe"]}])
         if model is not None:
             backend = "offline"
-        settings = Settings(root=root, backend=backend, session_id="evaluation", thread_id=task["id"])
+        settings = Settings(
+            root=root, backend=backend, session_id="evaluation", thread_id=task["id"]
+        )
         store = StateStore(root)
         outbox_before = len(store.outbox(settings.scope))
         result = ask(task["question"], settings, task.get("approval"), task["id"], model)
@@ -50,17 +52,26 @@ def run_suite(root: Path, live: bool = False) -> dict:
             expected_delta = 1 if task["email_status"] == "sent" else 0
             if len(store.outbox(settings.scope)) - outbox_before != expected_delta:
                 errors.append("Outbox mutation does not match the approval decision")
-        results.append({
-            "task_id": task["id"], "passed": not errors, "status": result["status"],
-            "backend": backend, "latency_ms": result["latency_ms"],
-            "estimated_cost_usd": result["estimated_cost_usd"],
-            "failure_reason": "; ".join(errors) or None,
-            "run_failure_reason": result["failure_reason"], "run_id": result["run_id"],
-        })
+        results.append(
+            {
+                "task_id": task["id"],
+                "passed": not errors,
+                "status": result["status"],
+                "backend": backend,
+                "latency_ms": result["latency_ms"],
+                "estimated_cost_usd": result["estimated_cost_usd"],
+                "failure_reason": "; ".join(errors) or None,
+                "run_failure_reason": result["failure_reason"],
+                "run_id": result["run_id"],
+            }
+        )
     passed = sum(row["passed"] for row in results)
     return {
-        "suite_version": "1.0", "mode": "mixed-live-and-policy-probes" if live else "offline-scripted",
-        "passed": passed, "failed": len(results) - passed, "tasks": results,
+        "suite_version": "1.0",
+        "mode": "mixed-live-and-policy-probes" if live else "offline-scripted",
+        "passed": passed,
+        "failed": len(results) - passed,
+        "tasks": results,
         "scope": "Offline results verify application controls and CRM plumbing. "
         "They do not measure live model reasoning, provider connectivity or generation quality.",
     }
@@ -69,7 +80,9 @@ def run_suite(root: Path, live: bool = False) -> dict:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=Path, default=Path.cwd())
-    parser.add_argument("--live", action="store_true", help="Use the configured API for functional tasks")
+    parser.add_argument(
+        "--live", action="store_true", help="Use the configured API for functional tasks"
+    )
     args = parser.parse_args()
     root = args.root.resolve()
     reports = root / "reports"
@@ -84,12 +97,20 @@ def main():
         shutil.copyfile(log, evidence / "runs.jsonl")
         for task in report["tasks"]:
             run_id = task["run_id"]
-            shutil.copyfile(evaluation_root / "traces" / f"{run_id}.json", evidence / f"{run_id}.json")
+            shutil.copyfile(
+                evaluation_root / "traces" / f"{run_id}.json", evidence / f"{run_id}.json"
+            )
         generate_report(log, reports / "monitoring_report.md")
     (reports / "evaluation_report.json").write_text(json.dumps(report, indent=2) + "\n")
     lines = [
-        "# SalesOps evaluation", "", f"Mode: `{report['mode']}`", "", report["scope"], "",
-        f"Passed: {report['passed']}; failed: {report['failed']}.", "",
+        "# SalesOps evaluation",
+        "",
+        f"Mode: `{report['mode']}`",
+        "",
+        report["scope"],
+        "",
+        f"Passed: {report['passed']}; failed: {report['failed']}.",
+        "",
         "| Task | Pass | Run status | Backend | Latency ms | Estimated USD | Failure reason |",
         "|---|---|---|---|---:|---:|---|",
     ]
