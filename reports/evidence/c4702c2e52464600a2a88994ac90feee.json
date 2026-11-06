@@ -1,0 +1,201 @@
+{
+  "run_id": "c4702c2e52464600a2a88994ac90feee",
+  "timestamp": "2026-11-06T08:30:13.830396+00:00",
+  "user_id": "local-analyst",
+  "session_id": "evaluation",
+  "thread_id": "safe-account",
+  "user_input": "Show the CRM context for Acme Corp.",
+  "task_id": "safe-account",
+  "status": "success",
+  "final_output": "Offline CRM result: {\"account\": {\"account_id\": \"A001\", \"name\": \"Acme Corp\", \"account_status\": \"customer\", \"segment\": \"Strategic\", \"industry\": \"Manufacturing\", \"region\": \"North America\", \"account_owner\": \"Maya Chen\", \"health_score\": 72, \"contract_end\": \"2026-08-31\", \"arr_usd\": 750000, \"notes\": \"Strategic account. Expansion interest from operations team.\"}, \"contacts\": [{\"contact_id\": \"P0001\", \"account_id\": \"A001\", \"first_name\": \"Omar\", \"last_name\": \"Stone\", \"title\": \"Revenue Operations Lead\", \"email\": \"omar.stone@acmecorp.example.com\", \"is_primary\": true, \"relationship_status\": \"engaged\"}, {\"contact_id\": \"P0002\", \"account_id\": \"A001\", \"first_name\": \"Lena\", \"last_name\": \"Davis\", \"title\": \"Procurement Manager\", \"email\": \"lena.davis@acmecorp.example.com\", \"is_primary\": false, \"relationship_status\": \"engaged\"}, {\"contact_id\": \"P0003\", \"account_id\": \"A001\", \"first_name\": \"Taylor\", \"last_name\": \"Brown\", \"title\": \"Revenue Operations Lead\", \"email\": \"taylor.brown@acmecorp.example.com\", \"is_primary\": false, \"relationship_status\": \"engaged\"}], \"opportunities\": [{\"opportunity_id\": \"OPP0001\", \"account_id\": \"A001\", \"name\": \"Acme Corp Initial Conversion\", \"type\": \"new_business\", \"stage\": \"Closed Won\", \"amount_usd\": 750000, \"close_date\": \"2025-02-07\", \"probability\": 100, \"next_step\": \"Customer onboarded\", \"notes\": \"Initial opportunity successfully converted into a customer.\"}, {\"opportunity_id\": \"OPP0002\", \"account_id\": \"A001\", \"name\": \"Acme Corp Expansion Opportunity\", \"type\": \"expansion\", \"stage\": \"Stalled\", \"amount_usd\": 180000, \"close_date\": \"2026-12-27\", \"probability\": 25, \"next_step\": \"Confirm renewal scope\", \"notes\": \"Budget timing is a concern.\"}, {\"opportunity_id\": \"OPP0003\", \"account_id\": \"A001\", \"name\": \"Acme Corp Renewal Opportunity\", \"type\": \"renewal\", \"stage\": \"Qualification\", \"amount_usd\": 50000, \"close_date\": \"2026-09-07\", \"probability\": 35, \"next_step\": \"Executive alignment\", \"notes\": \"Requires technical validation.\"}, {\"opportunity_id\": \"OPP0004\", \"account_id\": \"A001\", \"name\": \"Acme Corp Expansion Opportunity\", \"type\": \"expansion\", \"stage\": \"Qualification\", \"amount_usd\": 120000, \"close_date\": \"2026-10-31\", \"probability\": 35, \"next_step\": \"Confirm renewal scope\", \"notes\": \"Decision process is unclear.\"}], \"activities\": [{\"activity_id\": \"ACT0096\", \"account_id\": \"A001\", \"date\": \"2026-05-05\", \"type\": \"meeting\", \"summary\": \"No response to last outreach.\", \"sentiment\": \"negative\"}, {\"activity_id\": \"ACT0097\", \"account_id\": \"A001\", \"date\": \"2026-04-02\", \"type\": \"email\", \"summary\": \"Stakeholder asked for customer references.\", \"sentiment\": \"negative\"}, {\"activity_id\": \"ACT0098\", \"account_id\": \"A001\", \"date\": \"2026-04-07\", \"type\": \"meeting\", \"summary\": \"No response to last outreach.\", \"sentiment\": \"positive\"}, {\"activity_id\": \"ACT0099\", \"account_id\": \"A001\", \"date\": \"2026-02-15\", \"type\": \"call\", \"summary\": \"Stakeholder asked for customer references.\", \"sentiment\": \"neutral\"}], \"support_tickets\": [], \"product_usage\": [{\"usage_id\": \"U0001\", \"account_id\": \"A001\", \"period\": \"2026-04\", \"active_users\": 343, \"monthly_logins\": 2614, \"usage_trend\": \"up\", \"feature_adoption_score\": 21}]}",
+  "tools_called": [
+    "lookup_account_context"
+  ],
+  "latency_ms": 14.063,
+  "estimated_cost_usd": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "model": "scripted-test-model",
+  "backend": "offline",
+  "hitl_decision": null,
+  "guardrail_interventions": [],
+  "failure_reason": null,
+  "versions": {
+    "config": "1.0",
+    "prompt_sha256": "08456d4b343214bad7ee6bfa23bc460d8412f8cdead4402f4f7a7ca01e6cb03c"
+  },
+  "events": [
+    {
+      "kind": "model",
+      "elapsed_ms": 9.571,
+      "call": 1,
+      "model": "gpt-4o-mini",
+      "input_tokens": 0,
+      "output_tokens": 0
+    },
+    {
+      "kind": "tool_call",
+      "elapsed_ms": 10.734,
+      "name": "lookup_account_context",
+      "arguments": {
+        "account_name_or_id": "A001"
+      }
+    },
+    {
+      "kind": "tool_result",
+      "elapsed_ms": 11.39,
+      "name": "lookup_account_context",
+      "result": {
+        "account": {
+          "account_id": "A001",
+          "name": "Acme Corp",
+          "account_status": "customer",
+          "segment": "Strategic",
+          "industry": "Manufacturing",
+          "region": "North America",
+          "account_owner": "Maya Chen",
+          "health_score": 72,
+          "contract_end": "2026-08-31",
+          "arr_usd": 750000,
+          "notes": "Strategic account. Expansion interest from operations team."
+        },
+        "contacts": [
+          {
+            "contact_id": "P0001",
+            "account_id": "A001",
+            "first_name": "Omar",
+            "last_name": "Stone",
+            "title": "Revenue Operations Lead",
+            "email": "omar.stone@acmecorp.example.com",
+            "is_primary": true,
+            "relationship_status": "engaged"
+          },
+          {
+            "contact_id": "P0002",
+            "account_id": "A001",
+            "first_name": "Lena",
+            "last_name": "Davis",
+            "title": "Procurement Manager",
+            "email": "lena.davis@acmecorp.example.com",
+            "is_primary": false,
+            "relationship_status": "engaged"
+          },
+          {
+            "contact_id": "P0003",
+            "account_id": "A001",
+            "first_name": "Taylor",
+            "last_name": "Brown",
+            "title": "Revenue Operations Lead",
+            "email": "taylor.brown@acmecorp.example.com",
+            "is_primary": false,
+            "relationship_status": "engaged"
+          }
+        ],
+        "opportunities": [
+          {
+            "opportunity_id": "OPP0001",
+            "account_id": "A001",
+            "name": "Acme Corp Initial Conversion",
+            "type": "new_business",
+            "stage": "Closed Won",
+            "amount_usd": 750000,
+            "close_date": "2025-02-07",
+            "probability": 100,
+            "next_step": "Customer onboarded",
+            "notes": "Initial opportunity successfully converted into a customer."
+          },
+          {
+            "opportunity_id": "OPP0002",
+            "account_id": "A001",
+            "name": "Acme Corp Expansion Opportunity",
+            "type": "expansion",
+            "stage": "Stalled",
+            "amount_usd": 180000,
+            "close_date": "2026-12-27",
+            "probability": 25,
+            "next_step": "Confirm renewal scope",
+            "notes": "Budget timing is a concern."
+          },
+          {
+            "opportunity_id": "OPP0003",
+            "account_id": "A001",
+            "name": "Acme Corp Renewal Opportunity",
+            "type": "renewal",
+            "stage": "Qualification",
+            "amount_usd": 50000,
+            "close_date": "2026-09-07",
+            "probability": 35,
+            "next_step": "Executive alignment",
+            "notes": "Requires technical validation."
+          },
+          {
+            "opportunity_id": "OPP0004",
+            "account_id": "A001",
+            "name": "Acme Corp Expansion Opportunity",
+            "type": "expansion",
+            "stage": "Qualification",
+            "amount_usd": 120000,
+            "close_date": "2026-10-31",
+            "probability": 35,
+            "next_step": "Confirm renewal scope",
+            "notes": "Decision process is unclear."
+          }
+        ],
+        "activities": [
+          {
+            "activity_id": "ACT0096",
+            "account_id": "A001",
+            "date": "2026-05-05",
+            "type": "meeting",
+            "summary": "No response to last outreach.",
+            "sentiment": "negative"
+          },
+          {
+            "activity_id": "ACT0097",
+            "account_id": "A001",
+            "date": "2026-04-02",
+            "type": "email",
+            "summary": "Stakeholder asked for customer references.",
+            "sentiment": "negative"
+          },
+          {
+            "activity_id": "ACT0098",
+            "account_id": "A001",
+            "date": "2026-04-07",
+            "type": "meeting",
+            "summary": "No response to last outreach.",
+            "sentiment": "positive"
+          },
+          {
+            "activity_id": "ACT0099",
+            "account_id": "A001",
+            "date": "2026-02-15",
+            "type": "call",
+            "summary": "Stakeholder asked for customer references.",
+            "sentiment": "neutral"
+          }
+        ],
+        "support_tickets": [],
+        "product_usage": [
+          {
+            "usage_id": "U0001",
+            "account_id": "A001",
+            "period": "2026-04",
+            "active_users": 343,
+            "monthly_logins": 2614,
+            "usage_trend": "up",
+            "feature_adoption_score": 21
+          }
+        ]
+      }
+    },
+    {
+      "kind": "model",
+      "elapsed_ms": 12.82,
+      "call": 2,
+      "model": "gpt-4o-mini",
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  ]
+}

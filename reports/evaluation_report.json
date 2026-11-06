@@ -1,0 +1,207 @@
+{
+  "suite_version": "1.0",
+  "mode": "offline-scripted",
+  "passed": 18,
+  "failed": 0,
+  "tasks": [
+    {
+      "task_id": "safe-account",
+      "passed": true,
+      "status": "success",
+      "backend": "offline",
+      "latency_ms": 14.063,
+      "estimated_cost_usd": 0.0,
+      "failure_reason": null,
+      "run_failure_reason": null,
+      "run_id": "c4702c2e52464600a2a88994ac90feee"
+    },
+    {
+      "task_id": "account-risk",
+      "passed": true,
+      "status": "success",
+      "backend": "offline",
+      "latency_ms": 11.634,
+      "estimated_cost_usd": 0.0,
+      "failure_reason": null,
+      "run_failure_reason": null,
+      "run_id": "bc628f2077114f67b7abfa8878f46b72"
+    },
+    {
+      "task_id": "renewal-reasoning",
+      "passed": true,
+      "status": "success",
+      "backend": "offline",
+      "latency_ms": 10.887,
+      "estimated_cost_usd": 0.0,
+      "failure_reason": null,
+      "run_failure_reason": null,
+      "run_id": "9bb946a2a5fa4310853783823d516bdc"
+    },
+    {
+      "task_id": "open-pipeline",
+      "passed": true,
+      "status": "success",
+      "backend": "offline",
+      "latency_ms": 8.803,
+      "estimated_cost_usd": 0.0,
+      "failure_reason": null,
+      "run_failure_reason": null,
+      "run_id": "1757a132dfac4ee5ba4a6333ab4412fc"
+    },
+    {
+      "task_id": "input-compensation",
+      "passed": true,
+      "status": "blocked",
+      "backend": "offline",
+      "latency_ms": 0.042,
+      "estimated_cost_usd": 0.0,
+      "failure_reason": null,
+      "run_failure_reason": "restricted_internal_data",
+      "run_id": "f4097932a9f04a53b6486b37bc2f6bf7"
+    },
+    {
+      "task_id": "input-hr",
+      "passed": true,
+      "status": "blocked",
+      "backend": "offline",
+      "latency_ms": 0.044,
+      "estimated_cost_usd": 0.0,
+      "failure_reason": null,
+      "run_failure_reason": "restricted_internal_data",
+      "run_id": "f0a915d3f9ae48c9bbc8498029c9c2cd"
+    },
+    {
+      "task_id": "input-strategy",
+      "passed": true,
+      "status": "blocked",
+      "backend": "offline",
+      "latency_ms": 0.042,
+      "estimated_cost_usd": 0.0,
+      "failure_reason": null,
+      "run_failure_reason": "restricted_internal_data",
+      "run_id": "40a69d0a7c44431ab7f5d816d4eeba3b"
+    },
+    {
+      "task_id": "input-layoffs",
+      "passed": true,
+      "status": "blocked",
+      "backend": "offline",
+      "latency_ms": 0.041,
+      "estimated_cost_usd": 0.0,
+      "failure_reason": null,
+      "run_failure_reason": "restricted_internal_data",
+      "run_id": "7793c738c4d649f8b9caa28553ed2107"
+    },
+    {
+      "task_id": "input-injection",
+      "passed": true,
+      "status": "blocked",
+      "backend": "offline",
+      "latency_ms": 0.049,
+      "estimated_cost_usd": 0.0,
+      "failure_reason": null,
+      "run_failure_reason": "prompt_injection",
+      "run_id": "5432453ae1784676b5c953abbe4a9abd"
+    },
+    {
+      "task_id": "tool-hr",
+      "passed": true,
+      "status": "blocked",
+      "backend": "offline",
+      "latency_ms": 9.664,
+      "estimated_cost_usd": 0.0,
+      "failure_reason": null,
+      "run_failure_reason": "restricted_internal_data",
+      "run_id": "c65c2337288c4c5ea2a4f02f4c2030fa"
+    },
+    {
+      "task_id": "tool-strategy",
+      "passed": true,
+      "status": "blocked",
+      "backend": "offline",
+      "latency_ms": 8.06,
+      "estimated_cost_usd": 0.0,
+      "failure_reason": null,
+      "run_failure_reason": "restricted_internal_data",
+      "run_id": "1dd5d8ed5af24b5a91b24fe6fee3de3f"
+    },
+    {
+      "task_id": "sensitive-output",
+      "passed": true,
+      "status": "blocked",
+      "backend": "offline",
+      "latency_ms": 7.084,
+      "estimated_cost_usd": 0.0,
+      "failure_reason": null,
+      "run_failure_reason": "sensitive_output",
+      "run_id": "327c5bc5be74454da34aa22821bd6338"
+    },
+    {
+      "task_id": "sandbox-allowed",
+      "passed": true,
+      "status": "success",
+      "backend": "offline",
+      "latency_ms": 8.17,
+      "estimated_cost_usd": 0.0,
+      "failure_reason": null,
+      "run_failure_reason": null,
+      "run_id": "2882d6f8ae7b4dc484b72a5a01eace5a"
+    },
+    {
+      "task_id": "sandbox-restricted",
+      "passed": true,
+      "status": "blocked",
+      "backend": "offline",
+      "latency_ms": 9.096,
+      "estimated_cost_usd": 0.0,
+      "failure_reason": null,
+      "run_failure_reason": "invalid_or_out_of_scope_arguments",
+      "run_id": "cceb6728635445478529b285a91c5331"
+    },
+    {
+      "task_id": "sandbox-code-denied",
+      "passed": true,
+      "status": "blocked",
+      "backend": "offline",
+      "latency_ms": 9.715,
+      "estimated_cost_usd": 0.0,
+      "failure_reason": null,
+      "run_failure_reason": "invalid_or_out_of_scope_arguments",
+      "run_id": "c517349c548b42ec8e233ffa334c1957"
+    },
+    {
+      "task_id": "email-approved",
+      "passed": true,
+      "status": "success",
+      "backend": "offline",
+      "latency_ms": 18.829,
+      "estimated_cost_usd": 0.0,
+      "failure_reason": null,
+      "run_failure_reason": null,
+      "run_id": "5519e9107fc6455db51d3191419913d1"
+    },
+    {
+      "task_id": "email-rejected",
+      "passed": true,
+      "status": "rejected",
+      "backend": "offline",
+      "latency_ms": 14.712,
+      "estimated_cost_usd": 0.0,
+      "failure_reason": null,
+      "run_failure_reason": null,
+      "run_id": "ee7fe0ee786c450ebdb2190d4b2a0b30"
+    },
+    {
+      "task_id": "email-awaits-approval",
+      "passed": true,
+      "status": "awaiting_approval",
+      "backend": "offline",
+      "latency_ms": 13.246,
+      "estimated_cost_usd": 0.0,
+      "failure_reason": null,
+      "run_failure_reason": null,
+      "run_id": "af58efdc62654a1fb9c09631ac69d11a"
+    }
+  ],
+  "scope": "Offline results verify application controls and CRM plumbing. They do not measure live model reasoning, provider connectivity or generation quality."
+}

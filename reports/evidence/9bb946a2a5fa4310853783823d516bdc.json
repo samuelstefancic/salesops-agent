@@ -1,0 +1,229 @@
+{
+  "run_id": "9bb946a2a5fa4310853783823d516bdc",
+  "timestamp": "2026-11-06T08:30:13.855123+00:00",
+  "user_id": "local-analyst",
+  "session_id": "evaluation",
+  "thread_id": "renewal-reasoning",
+  "user_input": "Why is GlobalRetail Ltd's renewal at risk? Include health, usage and support evidence.",
+  "task_id": "renewal-reasoning",
+  "status": "success",
+  "final_output": "Offline CRM result: {\"account\": {\"account_id\": \"A002\", \"name\": \"GlobalRetail Ltd\", \"account_status\": \"customer\", \"segment\": \"Strategic\", \"industry\": \"Retail\", \"region\": \"EMEA\", \"account_owner\": \"Maya Chen\", \"health_score\": 25, \"contract_end\": \"2026-06-15\", \"arr_usd\": 1200000, \"notes\": \"CTO has ignored recent outreach. Renewal health is deteriorating.\"}, \"contacts\": [{\"contact_id\": \"P0004\", \"account_id\": \"A002\", \"first_name\": \"Elena\", \"last_name\": \"Voss\", \"title\": \"Chief Technology Officer\", \"email\": \"elena.voss@globalretail.example.com\", \"is_primary\": true, \"relationship_status\": \"unresponsive\"}, {\"contact_id\": \"P0005\", \"account_id\": \"A002\", \"first_name\": \"Maya\", \"last_name\": \"Turner\", \"title\": \"Procurement Manager\", \"email\": \"maya.turner@globalretailltd.example.com\", \"is_primary\": false, \"relationship_status\": \"champion\"}], \"opportunities\": [{\"opportunity_id\": \"OPP0005\", \"account_id\": \"A002\", \"name\": \"GlobalRetail Ltd Initial Conversion\", \"type\": \"new_business\", \"stage\": \"Closed Won\", \"amount_usd\": 1200000, \"close_date\": \"2025-01-21\", \"probability\": 100, \"next_step\": \"Customer onboarded\", \"notes\": \"Initial opportunity successfully converted into a customer.\"}, {\"opportunity_id\": \"OPP0181\", \"account_id\": \"A002\", \"name\": \"GlobalRetail Enterprise Renewal\", \"type\": \"renewal\", \"stage\": \"Stalled\", \"amount_usd\": 1200000, \"close_date\": \"2026-06-15\", \"probability\": 25, \"next_step\": \"Executive escalation required\", \"notes\": \"CTO ignoring all emails. Support tickets up 5x. Massive renewal is stalled.\"}], \"activities\": [{\"activity_id\": \"ACT0172\", \"account_id\": \"A002\", \"date\": \"2026-03-26\", \"type\": \"meeting\", \"summary\": \"Stakeholder asked for customer references.\", \"sentiment\": \"positive\"}, {\"activity_id\": \"ACT0173\", \"account_id\": \"A002\", \"date\": \"2026-01-31\", \"type\": \"note\", \"summary\": \"Executive sponsor joined the meeting.\", \"sentiment\": \"neutral\"}, {\"activity_id\": \"ACT0174\", \"account_id\": \"A002\", \"date\": \"2026-01-19\", \"type\": \"note\", \"summary\": \"Stakeholder asked for customer references.\", \"sentiment\": \"positive\"}, {\"activity_id\": \"ACT0175\", \"account_id\": \"A002\", \"date\": \"2026-04-08\", \"type\": \"demo\", \"summary\": \"Technical validation requested.\", \"sentiment\": \"positive\"}, {\"activity_id\": \"ACT0186\", \"account_id\": \"A002\", \"date\": \"2026-01-08\", \"type\": \"email\", \"summary\": \"Follow-up email sent to CTO. No response.\", \"sentiment\": \"negative\"}, {\"activity_id\": \"ACT0187\", \"account_id\": \"A002\", \"date\": \"2026-04-28\", \"type\": \"note\", \"summary\": \"CTO ignoring all emails. Renewal risk escalated.\", \"sentiment\": \"negative\"}], \"support_tickets\": [{\"ticket_id\": \"T0001\", \"account_id\": \"A002\", \"created_at\": \"2026-02-22\", \"severity\": \"critical\", \"status\": \"in_progress\", \"category\": \"integration\", \"summary\": \"User provisioning issue.\"}, {\"ticket_id\": \"T0002\", \"account_id\": \"A002\", \"created_at\": \"2026-03-01\", \"severity\": \"high\", \"status\": \"open\", \"category\": \"billing\", \"summary\": \"API integration error.\"}, {\"ticket_id\": \"T0031\", \"account_id\": \"A002\", \"created_at\": \"2026-04-27\", \"severity\": \"critical\", \"status\": \"open\", \"category\": \"integration\", \"summary\": \"Data sync failures affecting executive dashboard.\"}, {\"ticket_id\": \"T0032\", \"account_id\": \"A002\", \"created_at\": \"2026-04-20\", \"severity\": \"high\", \"status\": \"open\", \"category\": \"integration\", \"summary\": \"Support tickets increased sharply after integration update.\"}, {\"ticket_id\": \"T0033\", \"account_id\": \"A002\", \"created_at\": \"2026-04-21\", \"severity\": \"high\", \"status\": \"open\", \"category\": \"integration\", \"summary\": \"Retail analytics export failing for regional managers.\"}], \"product_usage\": [{\"usage_id\": \"U0002\", \"account_id\": \"A002\", \"period\": \"2026-04\", \"active_users\": 42, \"monthly_logins\": 185, \"usage_trend\": \"down\", \"feature_adoption_score\": 31}]}",
+  "tools_called": [
+    "lookup_account_context"
+  ],
+  "latency_ms": 10.887,
+  "estimated_cost_usd": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "model": "scripted-test-model",
+  "backend": "offline",
+  "hitl_decision": null,
+  "guardrail_interventions": [],
+  "failure_reason": null,
+  "versions": {
+    "config": "1.0",
+    "prompt_sha256": "08456d4b343214bad7ee6bfa23bc460d8412f8cdead4402f4f7a7ca01e6cb03c"
+  },
+  "events": [
+    {
+      "kind": "model",
+      "elapsed_ms": 6.597,
+      "call": 1,
+      "model": "gpt-4o-mini",
+      "input_tokens": 0,
+      "output_tokens": 0
+    },
+    {
+      "kind": "tool_call",
+      "elapsed_ms": 7.222,
+      "name": "lookup_account_context",
+      "arguments": {
+        "account_name_or_id": "A002"
+      }
+    },
+    {
+      "kind": "tool_result",
+      "elapsed_ms": 8.173,
+      "name": "lookup_account_context",
+      "result": {
+        "account": {
+          "account_id": "A002",
+          "name": "GlobalRetail Ltd",
+          "account_status": "customer",
+          "segment": "Strategic",
+          "industry": "Retail",
+          "region": "EMEA",
+          "account_owner": "Maya Chen",
+          "health_score": 25,
+          "contract_end": "2026-06-15",
+          "arr_usd": 1200000,
+          "notes": "CTO has ignored recent outreach. Renewal health is deteriorating."
+        },
+        "contacts": [
+          {
+            "contact_id": "P0004",
+            "account_id": "A002",
+            "first_name": "Elena",
+            "last_name": "Voss",
+            "title": "Chief Technology Officer",
+            "email": "elena.voss@globalretail.example.com",
+            "is_primary": true,
+            "relationship_status": "unresponsive"
+          },
+          {
+            "contact_id": "P0005",
+            "account_id": "A002",
+            "first_name": "Maya",
+            "last_name": "Turner",
+            "title": "Procurement Manager",
+            "email": "maya.turner@globalretailltd.example.com",
+            "is_primary": false,
+            "relationship_status": "champion"
+          }
+        ],
+        "opportunities": [
+          {
+            "opportunity_id": "OPP0005",
+            "account_id": "A002",
+            "name": "GlobalRetail Ltd Initial Conversion",
+            "type": "new_business",
+            "stage": "Closed Won",
+            "amount_usd": 1200000,
+            "close_date": "2025-01-21",
+            "probability": 100,
+            "next_step": "Customer onboarded",
+            "notes": "Initial opportunity successfully converted into a customer."
+          },
+          {
+            "opportunity_id": "OPP0181",
+            "account_id": "A002",
+            "name": "GlobalRetail Enterprise Renewal",
+            "type": "renewal",
+            "stage": "Stalled",
+            "amount_usd": 1200000,
+            "close_date": "2026-06-15",
+            "probability": 25,
+            "next_step": "Executive escalation required",
+            "notes": "CTO ignoring all emails. Support tickets up 5x. Massive renewal is stalled."
+          }
+        ],
+        "activities": [
+          {
+            "activity_id": "ACT0172",
+            "account_id": "A002",
+            "date": "2026-03-26",
+            "type": "meeting",
+            "summary": "Stakeholder asked for customer references.",
+            "sentiment": "positive"
+          },
+          {
+            "activity_id": "ACT0173",
+            "account_id": "A002",
+            "date": "2026-01-31",
+            "type": "note",
+            "summary": "Executive sponsor joined the meeting.",
+            "sentiment": "neutral"
+          },
+          {
+            "activity_id": "ACT0174",
+            "account_id": "A002",
+            "date": "2026-01-19",
+            "type": "note",
+            "summary": "Stakeholder asked for customer references.",
+            "sentiment": "positive"
+          },
+          {
+            "activity_id": "ACT0175",
+            "account_id": "A002",
+            "date": "2026-04-08",
+            "type": "demo",
+            "summary": "Technical validation requested.",
+            "sentiment": "positive"
+          },
+          {
+            "activity_id": "ACT0186",
+            "account_id": "A002",
+            "date": "2026-01-08",
+            "type": "email",
+            "summary": "Follow-up email sent to CTO. No response.",
+            "sentiment": "negative"
+          },
+          {
+            "activity_id": "ACT0187",
+            "account_id": "A002",
+            "date": "2026-04-28",
+            "type": "note",
+            "summary": "CTO ignoring all emails. Renewal risk escalated.",
+            "sentiment": "negative"
+          }
+        ],
+        "support_tickets": [
+          {
+            "ticket_id": "T0001",
+            "account_id": "A002",
+            "created_at": "2026-02-22",
+            "severity": "critical",
+            "status": "in_progress",
+            "category": "integration",
+            "summary": "User provisioning issue."
+          },
+          {
+            "ticket_id": "T0002",
+            "account_id": "A002",
+            "created_at": "2026-03-01",
+            "severity": "high",
+            "status": "open",
+            "category": "billing",
+            "summary": "API integration error."
+          },
+          {
+            "ticket_id": "T0031",
+            "account_id": "A002",
+            "created_at": "2026-04-27",
+            "severity": "critical",
+            "status": "open",
+            "category": "integration",
+            "summary": "Data sync failures affecting executive dashboard."
+          },
+          {
+            "ticket_id": "T0032",
+            "account_id": "A002",
+            "created_at": "2026-04-20",
+            "severity": "high",
+            "status": "open",
+            "category": "integration",
+            "summary": "Support tickets increased sharply after integration update."
+          },
+          {
+            "ticket_id": "T0033",
+            "account_id": "A002",
+            "created_at": "2026-04-21",
+            "severity": "high",
+            "status": "open",
+            "category": "integration",
+            "summary": "Retail analytics export failing for regional managers."
+          }
+        ],
+        "product_usage": [
+          {
+            "usage_id": "U0002",
+            "account_id": "A002",
+            "period": "2026-04",
+            "active_users": 42,
+            "monthly_logins": 185,
+            "usage_trend": "down",
+            "feature_adoption_score": 31
+          }
+        ]
+      }
+    },
+    {
+      "kind": "model",
+      "elapsed_ms": 9.582,
+      "call": 2,
+      "model": "gpt-4o-mini",
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  ]
+}

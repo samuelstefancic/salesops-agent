@@ -158,16 +158,16 @@ def ask(
         answer = response["messages"][-1].content
         if not isinstance(answer, str):
             answer = json.dumps(answer)
+        interventions = [event for event in run.events if event["kind"] == "guardrail"]
+        if interventions:
+            return run.finish(
+                "blocked", "A proposed action was blocked by policy.", interventions[-1]["reason"]
+            )
         reason = output_reason(answer)
         if reason:
             run.event("guardrail", **blocked(reason, "output"))
             return run.finish(
                 "blocked", "The generated response did not pass the output policy.", reason
-            )
-        interventions = [event for event in run.events if event["kind"] == "guardrail"]
-        if interventions:
-            return run.finish(
-                "blocked", "A proposed action was blocked by policy.", interventions[-1]["reason"]
             )
         decisions = [
             event

@@ -2,10 +2,11 @@ import re
 import unicodedata
 
 RESTRICTED = re.compile(
-    r"\b(?:salary|salaries|compensation|equity[_ ]bonus|bonus|bonuses|layoffs?|"
+    r"(?<![a-z0-9])(?:salary|salaries|compensation|equity[_ ]bonus|bonus|bonuses|layoffs?|"
     r"redundan(?:cy|cies)|termination|terminations|fired|getting fired|performance[_ ](?:plan|status)|"
     r"pip|internal[_ ]hr|internal[_ ]financial|confidential|acquir(?:e|ing)|acquisition|"
-    r"m\s*(?:&|and|_)\s*a|executive[_ ](?:pay|equity)|restricted[_ ]internal)\b",
+    r"m\s*(?:&|and|_)\s*a|executive[_ ](?:pay|equity)|restricted[_ ]internal|"
+    r"Marcus\s+Thorne|John\s+Doe)(?![a-z0-9])",
     re.IGNORECASE,
 )
 INJECTION = re.compile(
@@ -21,6 +22,32 @@ UNSAFE_EMAIL = re.compile(
     re.IGNORECASE,
 )
 SECRET = re.compile(r"sk-[A-Za-z0-9_-]{12,}|voc-[A-Za-z0-9_.-]{12,}|Bearer\s+\S+", re.IGNORECASE)
+SAFE_METADATA = {
+    "reason": {
+        "restricted_internal_data",
+        "prompt_injection",
+        "credential_in_input",
+        "sensitive_output",
+        "unsupported_customer_commitment",
+        "unknown_tool",
+        "tool_budget_exceeded",
+        "invalid_or_out_of_scope_arguments",
+        "empty_input",
+        "input_too_long",
+    },
+    "name": {
+        "lookup_account",
+        "lookup_account_context",
+        "list_open_opportunities",
+        "summarize_pipeline",
+        "analyze_crm",
+        "draft_email",
+        "send_email",
+        "lookup_internal_hr_data",
+        "lookup_internal_financial_data",
+        "execute_python",
+    },
+}
 
 
 def canonical(text: str) -> str:
@@ -60,7 +87,14 @@ def redact(value):
         return value
     if isinstance(value, dict):
         return {
-            key: "[REDACTED]" if restricted(key) else redact(item) for key, item in value.items()
+            key: (
+                item
+                if isinstance(item, str) and item in SAFE_METADATA.get(key, set())
+                else "[REDACTED]"
+                if restricted(key)
+                else redact(item)
+            )
+            for key, item in value.items()
         }
     if isinstance(value, list):
         return [redact(item) for item in value]

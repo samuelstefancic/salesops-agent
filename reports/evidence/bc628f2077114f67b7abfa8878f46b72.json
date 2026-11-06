@@ -1,0 +1,193 @@
+{
+  "run_id": "bc628f2077114f67b7abfa8878f46b72",
+  "timestamp": "2026-11-06T08:30:13.843371+00:00",
+  "user_id": "local-analyst",
+  "session_id": "evaluation",
+  "thread_id": "account-risk",
+  "user_input": "Summarize the account risk for TechStart Inc. Include health score, contract end date, usage and renewal blockers.",
+  "task_id": "account-risk",
+  "status": "success",
+  "final_output": "Offline CRM result: {\"account\": {\"account_id\": \"A003\", \"name\": \"TechStart Inc\", \"account_status\": \"customer\", \"segment\": \"Mid-Market\", \"industry\": \"SaaS\", \"region\": \"North America\", \"account_owner\": \"Rafael Costa\", \"health_score\": 95, \"contract_end\": \"2026-05-28\", \"arr_usd\": 90000, \"notes\": \"Very happy customer, but renewal date is imminent.\"}, \"contacts\": [{\"contact_id\": \"P0006\", \"account_id\": \"A003\", \"first_name\": \"Lena\", \"last_name\": \"Ortiz\", \"title\": \"VP Operations\", \"email\": \"lena.ortiz@techstart.example.com\", \"is_primary\": true, \"relationship_status\": \"champion\"}, {\"contact_id\": \"P0007\", \"account_id\": \"A003\", \"first_name\": \"Alex\", \"last_name\": \"Stone\", \"title\": \"Chief Technology Officer\", \"email\": \"alex.stone@techstartinc.example.com\", \"is_primary\": false, \"relationship_status\": \"engaged\"}], \"opportunities\": [{\"opportunity_id\": \"OPP0006\", \"account_id\": \"A003\", \"name\": \"TechStart Inc Initial Conversion\", \"type\": \"new_business\", \"stage\": \"Closed Won\", \"amount_usd\": 90000, \"close_date\": \"2025-03-12\", \"probability\": 100, \"next_step\": \"Customer onboarded\", \"notes\": \"Initial opportunity successfully converted into a customer.\"}, {\"opportunity_id\": \"OPP0007\", \"account_id\": \"A003\", \"name\": \"TechStart Inc Expansion Opportunity\", \"type\": \"expansion\", \"stage\": \"Stalled\", \"amount_usd\": 600000, \"close_date\": \"2026-07-07\", \"probability\": 25, \"next_step\": \"Confirm renewal scope\", \"notes\": \"Budget timing is a concern.\"}, {\"opportunity_id\": \"OPP0008\", \"account_id\": \"A003\", \"name\": \"TechStart Inc Renewal Opportunity\", \"type\": \"renewal\", \"stage\": \"Proposal\", \"amount_usd\": 250000, \"close_date\": \"2026-07-10\", \"probability\": 50, \"next_step\": \"Resolve blockers\", \"notes\": \"Budget timing is a concern.\"}, {\"opportunity_id\": \"OPP0182\", \"account_id\": \"A003\", \"name\": \"TechStart Renewal\", \"type\": \"renewal\", \"stage\": \"Negotiation\", \"amount_usd\": 90000, \"close_date\": \"2026-05-28\", \"probability\": 80, \"next_step\": \"Confirm renewal paperwork immediately\", \"notes\": \"Customer is very happy, but contract expires in less than 10 days.\"}], \"activities\": [{\"activity_id\": \"ACT0164\", \"account_id\": \"A003\", \"date\": \"2026-01-15\", \"type\": \"demo\", \"summary\": \"No response to last outreach.\", \"sentiment\": \"positive\"}, {\"activity_id\": \"ACT0165\", \"account_id\": \"A003\", \"date\": \"2026-02-05\", \"type\": \"call\", \"summary\": \"Technical validation requested.\", \"sentiment\": \"negative\"}, {\"activity_id\": \"ACT0188\", \"account_id\": \"A003\", \"date\": \"2026-05-18\", \"type\": \"meeting\", \"summary\": \"Customer expressed strong satisfaction but asked for renewal paperwork before contract deadline.\", \"sentiment\": \"positive\"}], \"support_tickets\": [{\"ticket_id\": \"T0003\", \"account_id\": \"A003\", \"created_at\": \"2026-04-17\", \"severity\": \"medium\", \"status\": \"open\", \"category\": \"performance\", \"summary\": \"API integration error.\"}], \"product_usage\": [{\"usage_id\": \"U0003\", \"account_id\": \"A003\", \"period\": \"2026-04\", \"active_users\": 88, \"monthly_logins\": 1220, \"usage_trend\": \"up\", \"feature_adoption_score\": 91}]}",
+  "tools_called": [
+    "lookup_account_context"
+  ],
+  "latency_ms": 11.634,
+  "estimated_cost_usd": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "model": "scripted-test-model",
+  "backend": "offline",
+  "hitl_decision": null,
+  "guardrail_interventions": [],
+  "failure_reason": null,
+  "versions": {
+    "config": "1.0",
+    "prompt_sha256": "08456d4b343214bad7ee6bfa23bc460d8412f8cdead4402f4f7a7ca01e6cb03c"
+  },
+  "events": [
+    {
+      "kind": "model",
+      "elapsed_ms": 7.833,
+      "call": 1,
+      "model": "gpt-4o-mini",
+      "input_tokens": 0,
+      "output_tokens": 0
+    },
+    {
+      "kind": "tool_call",
+      "elapsed_ms": 8.612,
+      "name": "lookup_account_context",
+      "arguments": {
+        "account_name_or_id": "A003"
+      }
+    },
+    {
+      "kind": "tool_result",
+      "elapsed_ms": 9.32,
+      "name": "lookup_account_context",
+      "result": {
+        "account": {
+          "account_id": "A003",
+          "name": "TechStart Inc",
+          "account_status": "customer",
+          "segment": "Mid-Market",
+          "industry": "SaaS",
+          "region": "North America",
+          "account_owner": "Rafael Costa",
+          "health_score": 95,
+          "contract_end": "2026-05-28",
+          "arr_usd": 90000,
+          "notes": "Very happy customer, but renewal date is imminent."
+        },
+        "contacts": [
+          {
+            "contact_id": "P0006",
+            "account_id": "A003",
+            "first_name": "Lena",
+            "last_name": "Ortiz",
+            "title": "VP Operations",
+            "email": "lena.ortiz@techstart.example.com",
+            "is_primary": true,
+            "relationship_status": "champion"
+          },
+          {
+            "contact_id": "P0007",
+            "account_id": "A003",
+            "first_name": "Alex",
+            "last_name": "Stone",
+            "title": "Chief Technology Officer",
+            "email": "alex.stone@techstartinc.example.com",
+            "is_primary": false,
+            "relationship_status": "engaged"
+          }
+        ],
+        "opportunities": [
+          {
+            "opportunity_id": "OPP0006",
+            "account_id": "A003",
+            "name": "TechStart Inc Initial Conversion",
+            "type": "new_business",
+            "stage": "Closed Won",
+            "amount_usd": 90000,
+            "close_date": "2025-03-12",
+            "probability": 100,
+            "next_step": "Customer onboarded",
+            "notes": "Initial opportunity successfully converted into a customer."
+          },
+          {
+            "opportunity_id": "OPP0007",
+            "account_id": "A003",
+            "name": "TechStart Inc Expansion Opportunity",
+            "type": "expansion",
+            "stage": "Stalled",
+            "amount_usd": 600000,
+            "close_date": "2026-07-07",
+            "probability": 25,
+            "next_step": "Confirm renewal scope",
+            "notes": "Budget timing is a concern."
+          },
+          {
+            "opportunity_id": "OPP0008",
+            "account_id": "A003",
+            "name": "TechStart Inc Renewal Opportunity",
+            "type": "renewal",
+            "stage": "Proposal",
+            "amount_usd": 250000,
+            "close_date": "2026-07-10",
+            "probability": 50,
+            "next_step": "Resolve blockers",
+            "notes": "Budget timing is a concern."
+          },
+          {
+            "opportunity_id": "OPP0182",
+            "account_id": "A003",
+            "name": "TechStart Renewal",
+            "type": "renewal",
+            "stage": "Negotiation",
+            "amount_usd": 90000,
+            "close_date": "2026-05-28",
+            "probability": 80,
+            "next_step": "Confirm renewal paperwork immediately",
+            "notes": "Customer is very happy, but contract expires in less than 10 days."
+          }
+        ],
+        "activities": [
+          {
+            "activity_id": "ACT0164",
+            "account_id": "A003",
+            "date": "2026-01-15",
+            "type": "demo",
+            "summary": "No response to last outreach.",
+            "sentiment": "positive"
+          },
+          {
+            "activity_id": "ACT0165",
+            "account_id": "A003",
+            "date": "2026-02-05",
+            "type": "call",
+            "summary": "Technical validation requested.",
+            "sentiment": "negative"
+          },
+          {
+            "activity_id": "ACT0188",
+            "account_id": "A003",
+            "date": "2026-05-18",
+            "type": "meeting",
+            "summary": "Customer expressed strong satisfaction but asked for renewal paperwork before contract deadline.",
+            "sentiment": "positive"
+          }
+        ],
+        "support_tickets": [
+          {
+            "ticket_id": "T0003",
+            "account_id": "A003",
+            "created_at": "2026-04-17",
+            "severity": "medium",
+            "status": "open",
+            "category": "performance",
+            "summary": "API integration error."
+          }
+        ],
+        "product_usage": [
+          {
+            "usage_id": "U0003",
+            "account_id": "A003",
+            "period": "2026-04",
+            "active_users": 88,
+            "monthly_logins": 1220,
+            "usage_trend": "up",
+            "feature_adoption_score": 91
+          }
+        ]
+      }
+    },
+    {
+      "kind": "model",
+      "elapsed_ms": 10.452,
+      "call": 2,
+      "model": "gpt-4o-mini",
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  ]
+}

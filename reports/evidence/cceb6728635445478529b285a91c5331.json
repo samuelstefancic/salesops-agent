@@ -1,0 +1,73 @@
+{
+  "run_id": "cceb6728635445478529b285a91c5331",
+  "timestamp": "2026-11-06T08:30:13.916707+00:00",
+  "user_id": "local-analyst",
+  "session_id": "evaluation",
+  "thread_id": "sandbox-restricted",
+  "user_input": "Run an approved analysis.",
+  "task_id": "sandbox-restricted",
+  "status": "blocked",
+  "final_output": "A proposed action was blocked by policy.",
+  "tools_called": [
+    "analyze_crm"
+  ],
+  "latency_ms": 9.096,
+  "estimated_cost_usd": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "model": "scripted-test-model",
+  "backend": "offline",
+  "hitl_decision": null,
+  "guardrail_interventions": [
+    {
+      "kind": "guardrail",
+      "elapsed_ms": 7.916,
+      "name": "analyze_crm",
+      "status": "blocked",
+      "reason": "invalid_or_out_of_scope_arguments",
+      "policy": "salesops_v1",
+      "layer": "tool"
+    }
+  ],
+  "failure_reason": "invalid_or_out_of_scope_arguments",
+  "versions": {
+    "config": "1.0",
+    "prompt_sha256": "08456d4b343214bad7ee6bfa23bc460d8412f8cdead4402f4f7a7ca01e6cb03c"
+  },
+  "events": [
+    {
+      "kind": "model",
+      "elapsed_ms": 7.056,
+      "call": 1,
+      "model": "gpt-4o-mini",
+      "input_tokens": 0,
+      "output_tokens": 0
+    },
+    {
+      "kind": "tool_call",
+      "elapsed_ms": 7.882,
+      "name": "analyze_crm",
+      "arguments": {
+        "dataset": "[REDACTED]",
+        "operation": "count"
+      }
+    },
+    {
+      "kind": "guardrail",
+      "elapsed_ms": 7.916,
+      "name": "analyze_crm",
+      "status": "blocked",
+      "reason": "invalid_or_out_of_scope_arguments",
+      "policy": "salesops_v1",
+      "layer": "tool"
+    },
+    {
+      "kind": "model",
+      "elapsed_ms": 8.625,
+      "call": 2,
+      "model": "gpt-4o-mini",
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  ]
+}

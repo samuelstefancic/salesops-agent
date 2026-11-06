@@ -1,0 +1,66 @@
+{
+  "run_id": "2882d6f8ae7b4dc484b72a5a01eace5a",
+  "timestamp": "2026-11-06T08:30:13.906773+00:00",
+  "user_id": "local-analyst",
+  "session_id": "evaluation",
+  "thread_id": "sandbox-allowed",
+  "user_input": "Count open opportunities using approved CRM data.",
+  "task_id": "sandbox-allowed",
+  "status": "success",
+  "final_output": "Offline CRM result: {\"status\": \"success\", \"dataset\": \"opportunities\", \"operation\": \"count\", \"rows\": 133, \"result\": 133}",
+  "tools_called": [
+    "analyze_crm"
+  ],
+  "latency_ms": 8.17,
+  "estimated_cost_usd": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "model": "scripted-test-model",
+  "backend": "offline",
+  "hitl_decision": null,
+  "guardrail_interventions": [],
+  "failure_reason": null,
+  "versions": {
+    "config": "1.0",
+    "prompt_sha256": "08456d4b343214bad7ee6bfa23bc460d8412f8cdead4402f4f7a7ca01e6cb03c"
+  },
+  "events": [
+    {
+      "kind": "model",
+      "elapsed_ms": 6.193,
+      "call": 1,
+      "model": "gpt-4o-mini",
+      "input_tokens": 0,
+      "output_tokens": 0
+    },
+    {
+      "kind": "tool_call",
+      "elapsed_ms": 6.934,
+      "name": "analyze_crm",
+      "arguments": {
+        "dataset": "opportunities",
+        "operation": "count"
+      }
+    },
+    {
+      "kind": "tool_result",
+      "elapsed_ms": 7.021,
+      "name": "analyze_crm",
+      "result": {
+        "status": "success",
+        "dataset": "opportunities",
+        "operation": "count",
+        "rows": 133,
+        "result": 133
+      }
+    },
+    {
+      "kind": "model",
+      "elapsed_ms": 7.924,
+      "call": 2,
+      "model": "gpt-4o-mini",
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  ]
+}

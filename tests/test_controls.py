@@ -86,6 +86,21 @@ def test_generated_sensitive_output_is_not_logged(settings):
 
 
 @pytest.mark.parametrize(
+    "answer",
+    [
+        "salary_usd: 850000",
+        "equity_bonus_usd: 2000000",
+        "Marcus Thorne: $2,000,000",
+        "performance_status: PIP",
+        "CONFIDENTIAL_M_AND_A: active negotiation",
+        "voc-syntheticcredential987654321.abcd",
+    ],
+)
+def test_raw_sensitive_fields_and_provider_keys_are_blocked(answer):
+    assert output_reason(answer) is not None
+
+
+@pytest.mark.parametrize(
     "name,args",
     [
         ("lookup_internal_hr_data", {"query": "CEO bonus"}),

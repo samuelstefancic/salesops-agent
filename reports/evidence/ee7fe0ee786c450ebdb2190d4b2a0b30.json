@@ -1,0 +1,108 @@
+{
+  "run_id": "ee7fe0ee786c450ebdb2190d4b2a0b30",
+  "timestamp": "2026-11-06T08:30:13.962924+00:00",
+  "user_id": "local-analyst",
+  "session_id": "evaluation",
+  "thread_id": "email-rejected",
+  "user_input": "Draft and send a follow-up email to Acme Corp about next steps.",
+  "task_id": "email-rejected",
+  "status": "rejected",
+  "final_output": "{\"email_status\": \"rejected\", \"draft_id\": \"fde36af9415946ce82d29433d5069ecc\", \"simulated\": true, \"message\": \"No real email is delivered.\"}",
+  "tools_called": [
+    "draft_email",
+    "send_email"
+  ],
+  "latency_ms": 14.712,
+  "estimated_cost_usd": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "model": "scripted-test-model",
+  "backend": "offline",
+  "hitl_decision": "reject",
+  "guardrail_interventions": [],
+  "failure_reason": null,
+  "versions": {
+    "config": "1.0",
+    "prompt_sha256": "08456d4b343214bad7ee6bfa23bc460d8412f8cdead4402f4f7a7ca01e6cb03c"
+  },
+  "events": [
+    {
+      "kind": "model",
+      "elapsed_ms": 6.723,
+      "call": 1,
+      "model": "gpt-4o-mini",
+      "input_tokens": 0,
+      "output_tokens": 0
+    },
+    {
+      "kind": "tool_call",
+      "elapsed_ms": 7.317,
+      "name": "draft_email",
+      "arguments": {
+        "account_name_or_id": "A001",
+        "purpose": "the next steps discussed with your team"
+      }
+    },
+    {
+      "kind": "tool_result",
+      "elapsed_ms": 10.182,
+      "name": "draft_email",
+      "result": {
+        "status": "drafted",
+        "draft_id": "fde36af9415946ce82d29433d5069ecc",
+        "to": "omar.stone@acmecorp.example.com",
+        "subject": "Following up on Acme Corp",
+        "body": "Hi Omar,\n\nI wanted to follow up regarding the next steps discussed with your team. Please let us know a suitable time to discuss next steps.\n\nBest,\nUdaCenture SalesOps"
+      }
+    },
+    {
+      "kind": "model",
+      "elapsed_ms": 11.139,
+      "call": 2,
+      "model": "gpt-4o-mini",
+      "input_tokens": 0,
+      "output_tokens": 0
+    },
+    {
+      "kind": "tool_call",
+      "elapsed_ms": 11.932,
+      "name": "send_email",
+      "arguments": {
+        "draft_id": "fde36af9415946ce82d29433d5069ecc"
+      }
+    },
+    {
+      "kind": "hitl",
+      "elapsed_ms": 11.975,
+      "action": "approval_requested",
+      "draft_id": "fde36af9415946ce82d29433d5069ecc"
+    },
+    {
+      "kind": "hitl",
+      "elapsed_ms": 13.556,
+      "action": "decision",
+      "decision": "reject",
+      "status": "rejected",
+      "draft_id": "fde36af9415946ce82d29433d5069ecc",
+      "simulated": true
+    },
+    {
+      "kind": "tool_result",
+      "elapsed_ms": 13.589,
+      "name": "send_email",
+      "result": {
+        "status": "rejected",
+        "draft_id": "fde36af9415946ce82d29433d5069ecc",
+        "simulated": true
+      }
+    },
+    {
+      "kind": "model",
+      "elapsed_ms": 14.343,
+      "call": 3,
+      "model": "gpt-4o-mini",
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  ]
+}
