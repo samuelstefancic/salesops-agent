@@ -1,0 +1,21 @@
+{
+  "version": "1.0",
+  "model": "gpt-4o-mini",
+  "temperature": 0,
+  "model_timeout_seconds": 30,
+  "max_model_calls": 6,
+  "max_tool_calls": 8,
+  "max_input_characters": 4000,
+  "reference_date": "2026-11-06",
+  "input_usd_per_million": 0.15,
+  "output_usd_per_million": 0.60,
+  "pricing_note": "Configurable estimates, not a billing reconciliation. Validate rates for your provider.",
+  "data_fields": {
+    "accounts": ["account_id", "name", "account_status", "segment", "industry", "region", "account_owner", "health_score", "contract_end", "arr_usd", "notes"],
+    "contacts": ["contact_id", "account_id", "first_name", "last_name", "title", "email", "is_primary", "relationship_status"],
+    "opportunities": ["opportunity_id", "account_id", "name", "type", "stage", "amount_usd", "close_date", "probability", "next_step", "notes"],
+    "activities": ["activity_id", "account_id", "date", "type", "summary", "sentiment"],
+    "support_tickets": ["ticket_id", "account_id", "created_at", "severity", "status", "category", "summary"],
+    "product_usage": ["usage_id", "account_id", "period", "active_users", "monthly_logins", "usage_trend", "feature_adoption_score"]
+  }
+}
